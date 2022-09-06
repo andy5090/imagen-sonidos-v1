@@ -126,10 +126,13 @@ function video2Mozaic() {
 
 function soundGenerate(blocksColor) {
   for (let i = 0; i < numBlockVert; i++) {
-    const freq = hue(blocksColor[blockIndicator + i * numBlockHori]);
+    const hueColor = hue(blocksColor[blockIndicator + i * numBlockHori]);
     const brt = brightness(blocksColor[blockIndicator + i * numBlockHori]);
 
-    osc[i].freq(map(freq, 0, 255, 50, 800));
+    const freq = map(hueColor, 0, 255, 200, 800);
+    //console.log(freq);
+    osc[i].freq(freq);
+
     if (brt < 40) {
       osc[i].amp(0.06, 0.2);
     } else if (brt < 80) {
@@ -144,14 +147,14 @@ function title() {
   textSize(50);
   textStyle(BOLD);
   textAlign(CENTER);
-  text("Imagen Sonidos Web Op.1", 0, 200, width);
+  text("Imagen Sonidos Web Op.1", 0, height / 4, width);
 
   textSize(30);
   textStyle(NORMAL);
-  text("Created by Andy DK Lee", 0, 500, width);
+  text("Created by Andy DK Lee", 0, height / 2, width);
 
   textSize(20);
-  text("- Click or touch the screen to continue -", 0, 600, width);
+  text("- Click or touch the screen to continue -", 0, (height / 4) * 3, width);
 }
 
 function titleAnimation() {

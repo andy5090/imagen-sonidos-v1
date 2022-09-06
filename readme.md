@@ -1,8 +1,5 @@
-# Imagen Sonidos Ordenados web v1
+# Imagen Sonidos Ordenados web
 
-- [x] Getting visual data from webcam
-- [x] Convert webcam captured image to mozaic image
-- [x] Showing mozaic image on screen
-- [ ] Add time sequencer bar for sound playing
-- [ ] Convert color data to sound data
-- [ ] Play sound by sequencer
+- Converting real-time camera image to mozaic tiled pixel every frame
+- The sequencer read colors of each column of tiles per a second
+- After reading column, the sequencer turns over colors to oscilated sound as converted pitch
