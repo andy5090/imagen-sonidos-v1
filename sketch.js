@@ -51,9 +51,9 @@ function setup() {
   for (let i = 0; i < numBlockVert; i++) {
     osc[i] = new p5.Oscillator();
     osc[i].setType("sine");
-    osc[i].start();
     osc[i].freq(240);
     osc[i].amp(0.1, 1);
+    osc[i].start();
   }
 }
 
@@ -62,6 +62,7 @@ let onAir = false;
 function ready() {
   onAir = true;
   prevMilSec = millis();
+  getAudioContext().resume();
 }
 
 function drawBlocks(blocksColor) {
@@ -143,60 +144,10 @@ function soundGenerate(blocksColor) {
   }
 }
 
-function title() {
-  textSize(50);
-  textStyle(BOLD);
-  textAlign(CENTER);
-  text("Imagen Sonidos Web Op.1", 0, height / 4, width);
-
-  textSize(30);
-  textStyle(NORMAL);
-  text("Created by Andy DK Lee", 0, height / 2, width);
-
-  textSize(20);
-  text("- Click or touch the screen to continue -", 0, (height / 4) * 3, width);
-}
-
-function titleAnimation() {
-  if (fadeIn === 0) {
-    fill(textColor);
-    title();
-    fadeTime++;
-    if (fadeTime === fadeStep) {
-      textColor++;
-      fadeTime = 0;
-      if (textColor === 200) {
-        fadeIn = 1;
-      }
-    }
-  } else if (fadeIn === 1) {
-    fill(200);
-    title();
-  } else {
-    stroke(0);
-    fill(textColor);
-    title();
-    fadeTime++;
-    if (fadeTime === fadeStep) {
-      textColor--;
-      fadeTime = 0;
-      if (textColor === 0) {
-        clear();
-        titleShowed = true;
-        noStroke();
-      }
-    }
-  }
-}
-
 function draw() {
   background(0);
 
-  if (!titleShowed) {
-    titleAnimation();
-  }
-
-  if (onAir && titleShowed) {
+  if (onAir) {
     capture.loadPixels();
 
     const blocksColor = video2Mozaic();
@@ -210,19 +161,5 @@ function draw() {
       }
       prevMilSec = millis();
     }
-  }
-}
-
-function mousePressed() {
-  if (!titleShowed && fadeIn === 1) {
-    getAudioContext().resume();
-    fadeIn = 2;
-  }
-}
-
-function mouseClicked() {
-  if (titleShowed) {
-    let fs = fullscreen();
-    fullscreen(!fs);
   }
 }
